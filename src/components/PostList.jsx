@@ -4,6 +4,11 @@ import Post from './Post'
 import Modal from './Modal'
 import classes from'./PostList.module.css'
 const PostList = ({isPosting, onStopPosting}) => {
+  const [posts, setPosts] = useState([]);
+
+  function addPostHandler(postData) {
+    setPosts((existingPost) => [postData, ...existingPost]);
+  }
   // let modalContent;
   // if(isModalVisible) {
   //   modalContent = <Modal onClose={hideModalHandler}>
@@ -26,15 +31,21 @@ const PostList = ({isPosting, onStopPosting}) => {
     {isPosting && (<Modal onClose={onStopPosting}>
       <NewPost 
       onCancel = {onStopPosting}
+      onAddPost = {addPostHandler}
       />
     </Modal>)}
 
     {/* another approach */}
     {/* {modalContent} */}
-    
-    <ul className={classes.posts}>
-      <Post author="nadeem ahmed" body="react js is awesome again" />
+    {posts.length > 0 && (
+      <ul className={classes.posts}>
+      {posts.map((post) => <Post key={post.body} author={post.author} body={post.body}/>)}
     </ul>
+    )}
+    {posts.length === 0 && (<div style={{ textAlign: 'center', color: 'white'}}>
+      <h2>No posts yet!</h2>
+    </div>
+    )}
     </>
   )
 }
