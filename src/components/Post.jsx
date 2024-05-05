@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom'
 import classes from'./Post.module.css'
 // const names = ['Nadeem', 'Ahmed']
 
@@ -7,7 +7,10 @@ const Post = (props) => {
   return (
     <li className={classes.post}>
       {/* <p className={classes.author}>{chosenName}</p> */}
-      <p className={classes.text}>{props.author}-  {props.body}</p>``
+      <Link to={props.id}>
+      <h5 className={classes.author}>{props.author}-</h5>
+      <p className={classes.text}>{props.body}</p>
+      </Link>
     </li>
   )
 }
